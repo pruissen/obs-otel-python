@@ -61,6 +61,27 @@ description: Opentelemetry demo for AWS Lambda/EKS with Dynatrace backend
 }
 ```
 
+## Key Experiences & Learnings:
+
+* **OpenTelemetry Collector Flexibility:**
+    * The "adot collector" (AWS Distro for OpenTelemetry Collector) presented limitations by scrubbing attributes and batch processors, making it less versatile for multi-vendor observability compared to the community/stock OpenTelemetry Collector. The latter is currently in use due to its broader compatibility.
+* **Enhanced Visibility in Dynatrace:**
+    * Utilizing the OpenTelemetry `attributes` processor/plugin has been crucial for making all collected data, including new service applications, enjoyable and properly viewable within Dynatrace.
+* **Proper Metric Temporality & Configuration:**
+    * Key environment variables such as `OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE` and others, as configured in `main.tf`, ensure proper functionality and data representation.
+* **Robust Log-Trace Correlation:**
+    * Successful correlation of logs to traces using `trace_id` and `span_id` has been implemented and is working effectively.
+
+## Advantages Over Dynatrace OneAgent AWS Layer:
+
+The OpenTelemetry Collector approach offers several significant advantages:
+
+1.  **Unified Observability Data Collection:**
+    * Consolidates the collection of **metrics, logs, and traces**, along with their correlation, into a single collector binary. This simplifies deployment and management compared to potentially separate agents or layers.
+2.  **Customization and Contextualization:**
+    * Provides the **ability to add custom properties, implement batching/queuing mechanisms, and inject context for multi-tenancy scenarios**. This allows for highly tailored data enrichment and organization, which is critical for complex environments.
+3.  **Comprehensive AWS Lambda Monitoring:**
+    * Supplements standard AWS Lambda infrastructure metrics (collected by other means) with **custom Lambda application metrics and auto-instrumented metrics** through OpenTelemetry. This delivers a much deeper and more granular view of Lambda function performance and behavior.
 
 #### Opentelemetry layers: an alternative for collector-python
 ```bash

@@ -22,8 +22,17 @@ See: https://www.jetify.com/docs/devbox/installing_devbox/
 Setup: use [![Built with Devbox](https://www.jetify.com/img/devbox/shield_galaxy.svg)](https://www.jetify.com/devbox/docs/contributor-quickstart/)
 
 
-## Opentelemetry in the Dynatrace GUI
+## Opentelemetry in the Dynatrace GUI/Notebooks
+The below sample shows an example with:
+ - an **autoinstrumented custom metric** *http.client.duration* which is automatically captured using the *requests* library in Python. No source code modifications were required.
+ - an **application custom metric** *http.request.latency.seconds*, and *http.request.count* that is exposed from the Lambda itself. This is optional and just an example. This could be Alliander specific metrics that are required
+ - **service metrics** that are captured by Dynatrace by default. These are **infrastructure type of metrics** that capture the failure rate, result, throughput and duration of the lambda function.
+
+
 ![Alt text](docs/images/service.png?raw=true "collector-python Dynatrace")
+
+![Alt text](docs/images/notebook.png?raw=true "collector-python Dynatrace")
+
 
 ## Design
 ![Alt text](docs/images/collector-python-layer.png?raw=true "collector-python Dynatrace")
